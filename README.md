@@ -23,7 +23,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000, open the Settings gear, paste your Groq API key (get one at https://console.groq.com/keys), and start recording.
+Open [this url](https://twinmind-live-transcript-fv8oxyndd-alishindes-projects.vercel.app/), open the Settings gear, paste your Groq API key (get one at https://console.groq.com/keys), and start recording.
 
 No environment variables required — the API key is supplied by the user at runtime and sent with each request as an `x-groq-api-key` header. Nothing is hardcoded or shipped.
 
