@@ -22,7 +22,12 @@ function ExportButton({chunks, batches, messages}: Props){
         URL.revokeObjectURL(url);
     }
     return (<>
-        <button onClick={handleExport}>Download Session</button>
+        <button
+            onClick={handleExport}
+            className="px-3 py-1 text-sm rounded border border-gray-600 cursor-pointer hover:border-gray-400 hover:text-white transition-colors"
+        >
+            Download Session
+        </button>
     </>)
 }
 
