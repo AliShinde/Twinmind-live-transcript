@@ -6,6 +6,7 @@ import TranscriptPanel from "../components/TranscriptPanel";
 import SuggestionsPanel from "../components/SuggestionsPanel";
 import ChatPanel from "../components/ChatPanel";
 import SettingsModal from "../components/SettingsModal";
+import WelcomeModal from "../components/WelcomeModal";
 import ExportButton from "../components/ExportButton";
 
 function Page() {
@@ -20,6 +21,7 @@ function Page() {
     const messagesRef = useRef<ChatMessage[]>([]);
     const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
     const settingsRef = useRef(settings);
+    const [showWelcome, setShowWelcome] = useState(false);
 
     useEffect(() => {
         const saved = localStorage.getItem('twinmind-settings');
@@ -28,7 +30,15 @@ function Page() {
             setSettings(parsed);
             settingsRef.current = parsed;
         }
+        if (!localStorage.getItem('twinmind-welcome-seen')) {
+            setShowWelcome(true);
+        }
     }, []);
+
+    const handleDismissWelcome = () => {
+        localStorage.setItem('twinmind-welcome-seen', '1');
+        setShowWelcome(false);
+    }
 
     const handleSaveSettings = (newSettings: Settings) => {
         setSettings(newSettings);
@@ -155,6 +165,7 @@ function Page() {
                     <ExportButton chunks={chunks} batches={batches} messages={messages}/>
                     <SettingsModal settings={settings} onSave={handleSaveSettings} />
                 </div>
+                <WelcomeModal open={showWelcome} onClose={handleDismissWelcome} />
                 <div className="flex flex-1 min-h-0">
                     <div className="w-1/3 border-r border-gray-700">
                         <TranscriptPanel chunks={chunks} isRecording={isRecording} onStart={start} onStop={stop}/>
